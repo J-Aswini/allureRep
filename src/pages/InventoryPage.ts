@@ -21,11 +21,9 @@ export class InventoryPage extends BasePage {
   }
 
   async addItemToCart(itemName: string) {
-    const productCard = this.inventoryList
-      .locator('.inventory_item')
-      .filter({ has: this.page.getByText(itemName, { exact: true }) });
-
-    const addToCartButton = productCard.getByRole('button', { name: 'Add to cart' });
+    const addToCartButton = this.page.getByRole('button', {
+      name: new RegExp(`add to cart.*${itemName}`, 'i'),
+    });
 
     await addToCartButton.click();
   }
